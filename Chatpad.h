@@ -23,10 +23,33 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
+<<<<<<< HEAD
+=======
+ * 
+ * Modifications by fdufnews 07/2015
+>>>>>>> cf02de2cd7b6821c1187b6ae5921c668f4468bf4
  */
 #ifndef Chatpad_h
 #define Chatpad_h
 
+<<<<<<< HEAD
+=======
+/* choose the keymap you want
+ * keybUS is the one originaly defined by Cliff L. Biffle only two tables normal and shifted
+ * keybFR defined to be compatible with french chatpad layout normal, shifted, green square, orange circle
+ */
+
+//#define keybUS
+#define keybFR
+
+/*
+ * uncomment this line if you want poll to silently recover from an out of synchronisation in data stream
+ * if commented a message will be displayed before resynchronisation
+ * added by fdufnews 07/2015
+ */
+#define SILENTLY_RECOVER 1
+
+>>>>>>> cf02de2cd7b6821c1187b6ae5921c668f4468bf4
 #include <stdint.h>
 
 // Declaration of Arduino's internal serial port type.
@@ -119,6 +142,14 @@ public:
   typedef void (*callback_t)(Chatpad &, keycode_t, eventtype_t);
 
   /*
+<<<<<<< HEAD
+=======
+   * Synchronize data stream from chatpad on a header byte
+   */
+  void synchronize(void);
+
+  /*
+>>>>>>> cf02de2cd7b6821c1187b6ae5921c668f4468bf4
    * Sets up communications with the chatpad, including initializing the
    * serial port.
    */
