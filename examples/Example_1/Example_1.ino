@@ -12,7 +12,12 @@ void print_keys(Chatpad &pad, Chatpad::keycode_t code,
       Serial.println("Pressed left");
     } else if (a != 0){
       Serial.print(a);
+      Keyboard.write(a);
+      digitalWrite(13, HIGH);
     }   
+  }
+  if (type == Chatpad::Up) {
+      digitalWrite(13, LOW);
   }
 }
 
@@ -20,6 +25,7 @@ void setup() {
   delay(1000);
   Serial.begin(57600);
   pad.init(Serial1, print_keys);
+  pinMode(13, OUTPUT);
 }
 
 void loop() {

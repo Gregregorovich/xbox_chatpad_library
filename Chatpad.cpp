@@ -54,7 +54,16 @@ void Chatpad::poll() {
 
   // Only act if a full message is available.
   if (_serial->available() >= 8) {
-    for (int i = 0; i < 8; i++) {
+    
+    uint8_t first = _serial->read();
+
+    // We expect "status report" packets beginning with 0xA5, but don't know
+    // what to do with them -- so we silently discard them.
+    if(((first == 0xA5) || (first == 0xB4)) == false) return;
+
+
+	_buffer[0] = first;
+    for (int i = 1; i < 8; i++) {
       _buffer[i] = _serial->read();
     }
 
@@ -63,6 +72,12 @@ void Chatpad::poll() {
     // We expect "status report" packets beginning with 0xA5, but don't know
     // what to do with them -- so we silently discard them.
     if (_buffer[0] == 0xA5) return;
+
+	for (int i = 0; i < 8; i++) {
+	  Serial.print(_buffer[i], HEX);
+	  Serial.print(", ");
+    }
+	Serial.println();
 
     // We *do not* expect other types of packets.  If we find one, complain
     // to the user.
@@ -85,6 +100,7 @@ void Chatpad::poll() {
       Serial.println("Checksum failure");
       return;
     }
+
 
     // Packet looks good!
     // Dissect the parts we care about:
